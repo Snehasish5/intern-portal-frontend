@@ -1,5 +1,5 @@
 // Fetch leaderboard data and populate the list
-fetch("https://intern-portal-backend-final.onrender.com/api/leaderboard")
+fetch("https://intern-portal-backend-3lym.onrender.com/api/intern")
   .then(res => {
     if (!res.ok) throw new Error("Network response was not ok");
     return res.json();
