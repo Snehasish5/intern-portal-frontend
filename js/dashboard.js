@@ -1,30 +1,26 @@
-// Fetch leaderboard data and populate the list
-fetch("https://intern-portal-backend-3lym.onrender.com/api/intern")
-  .then(res => {
-    if (!res.ok) throw new Error("Network response was not ok");
-    return res.json();
-  })
-  .then(data => {
-    const list = document.getElementById("leaderboard-list");
-    list.innerHTML = ""; // Clear any loading state
-    data.forEach(entry => {
-      const li = document.createElement("li");
-      li.textContent = `${entry.name} — ₹${entry.donations}`;
-      list.appendChild(li);
-    });
-  })
-  .catch(err => {
-    console.error("Failed to fetch leaderboard data:", err);
-    const list = document.getElementById("leaderboard-list");
-    list.innerHTML = "<li>⚠️ Failed to load leaderboard data</li>";
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  const internName = document.getElementById("intern-name");
+  const referralCode = document.getElementById("referral-code");
+  const donations = document.getElementById("donations");
 
-// Logout button event listener (if leaderboard.html includes a logout button)
-const logoutBtn = document.getElementById("logout-btn");
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    // Clear any user session data if used
-    // localStorage.clear();
-    window.location.href = "index.html";
-  });
-}
+  fetch("https://intern-portal-backend-3lym.onrender.com/api/intern")
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Failed to fetch intern data");
+          }
+          return response.json();
+      })
+      .then(data => {
+          // Assuming `data` is an object like: { "name": "Snehasish", "referral": "XYZ123", "donations": 1200 }
+          internName.textContent = data.name || "N/A";
+          referralCode.textContent = data.referral || "N/A";
+          donations.textContent = data.donations || "0";
+      })
+      .catch(error => {
+          console.error("Error loading intern data:", error);
+          internName.textContent = "Error";
+          referralCode.textContent = "-";
+          donations.textContent = "-";
+          alert("Failed to load intern data. Please try again later.");
+      });
+});
