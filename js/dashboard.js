@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const referralCode = document.getElementById("referral-code");
   const donations = document.getElementById("donations");
 
-  fetch("https://intern-portal-backend-3lym.onrender.com/api/intern")
+  fetch("https://intern-portal-backend-3lym.onrender.com/api/dashboard")
       .then(response => {
           if (!response.ok) {
               throw new Error("Failed to fetch intern data");
