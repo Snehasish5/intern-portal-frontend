@@ -15,15 +15,22 @@
 
   <script>
     fetch("http://localhost:5000/api/leaderboard")
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById("leaderboard-list");
-        data.forEach(entry => {
-          const li = document.createElement("li");
-          li.textContent = `${entry.name} — ₹${entry.donations}`;
-          list.appendChild(li);
-        });
+    .then(res => {
+      if (!res.ok) throw new Error("Network response not ok");
+      return res.json();
+    })
+    .then(data => {
+      const list = document.getElementById("leaderboard-list");
+      data.forEach(entry => {
+        const li = document.createElement("li");
+        li.textContent = `${entry.name} — ₹${entry.donations}`;
+        list.appendChild(li);
       });
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+      document.getElementById("leaderboard-list").textContent = "Failed to load leaderboard.";
+    });
   </script>
 </body>
 </html>
