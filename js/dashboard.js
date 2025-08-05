@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return response.json();
       })
       .then(data => {
-          // Assuming `data` is an object like: { "name": "Snehasish", "referral": "XYZ123", "donations": 1200 }
+          // Assuming `data` is an object like: { "name": "Snehasish", "referral": "snehasish2025", "donations": 1200 }
           internName.textContent = data.name || "N/A";
           referralCode.textContent = data.referral || "N/A";
           donations.textContent = data.donations || "0";
